@@ -1,14 +1,14 @@
 ---
 - name: Copy inventory information file from host to AWX server
   hosts: all
-  gather_facts: yes
-  
+  gather_facts: no
+
   tasks:
   - name: Get hostname
-    set_fact:
-      hostname: "{{ ansible_nodename }}"
+    shell: hostname
+    register: hostname_result
 
   - name: Copy file to AWX server
     copy:
-      src: /tmp/"{{ hostname }}"_inventory_information.txt
-      dest: ~/awx-host-info/{{ hostname }}_inventory_information.txt
+      src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
+      dest: ~/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
