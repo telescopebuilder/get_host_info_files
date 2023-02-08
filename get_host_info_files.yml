@@ -8,14 +8,8 @@
     shell: hostname
     register: hostname_result
 
-  - name: Create destination directory
-    file:
-      path: ~/awx-host-info
-      state: directory
-      mode: 0755
-
   - name: Copy file to AWX server
     copy:
       src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
-      dest: ~/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
+      dest: /home/ansible_andy/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
       remote_src: yes
