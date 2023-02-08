@@ -1,0 +1,10 @@
+---
+- name: Copy inventory information file from host to AWX server
+  hosts: all
+  gather_facts: no
+  
+  tasks:
+  - name: Copy file to AWX server
+    copy:
+      src: /tmp/"{{ inventory_hostname }}"_inventory_information.txt
+      dest: ~/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
