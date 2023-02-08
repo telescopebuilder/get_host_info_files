@@ -1,4 +1,6 @@
 ---
+#NOT WORKING - APPEARS TO BE ATTEMPTING TO COPY TO HOST DIRECTORY AND NOT AWX
+#SEE PREVIOUS COMMITS
 - name: Copy inventory information file from host to AWX server
   hosts: all
   gather_facts: no
