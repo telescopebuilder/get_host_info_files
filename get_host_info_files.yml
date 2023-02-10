@@ -1,54 +1,11 @@
 ---
-  - name: Copy host inventory information to AWX server
-    hosts: all
-    tasks:
-      - name: Copy file to AWX server
-        copy:
-          src: /tmp/{{ inventory_hostname }}_inventory_information.txt
-          dest: andy-awxnode-test:/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
-        delegate_to: localhost
-        become: false
-        remote_src: yes
-
-
-#FETCH NOT WORKING - APPEARS TO BE ATTEMPTING TO COPY TO HOST DIRECTORY AND NOT AWX
-#SEE PREVIOUS COMMITS
-#- name: Copy inventory information file from host to AWX server
-#  hosts: all
-#  become: yes
-#  become_user: root
-#  gather_facts: no
-#
-#  tasks:
-#  - name: Get hostname
-#    shell: hostname
-#    register: hostname_result
-#
-#  - name: Copy file to AWX server
-#    local_action:
-#      module: fetch
-#      src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
-#      dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
-#      flat: yes
-#      become: yes
-#      become_user: root
-
-#ALSO NOT WORKING
-#USING SYCHRONIZE
-#  - name: Copy inventory information file from host to AWX server
-#    hosts: all
-#    gather_facts: no
-#
-#    tasks:
-#    - name: Get hostname
-#      shell: hostname
-#      register: hostname_result
-#
-#    - name: Copy file to AWX server
-#      synchronize:
-#        src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
-#        dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
-#        mode: pull
-#        delete: yes
-#        become: yes
-#        become_user: root
+- name: Copy host inventory information to AWX server
+  hosts: all
+  tasks:
+    - name: Copy file to AWX server
+      copy:
+        src: /tmp/{{ inventory_hostname }}_inventory_information.txt
+        dest: andy-awxnode-test:/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
+      delegate_to: localhost
+      become: false
+      remote_src: yes
