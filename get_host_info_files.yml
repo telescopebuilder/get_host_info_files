@@ -15,6 +15,10 @@
       copy:
         src: /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
         dest: /tmp/awx-host-info/
+        
+    - name: Insert newline
+      delegate_to: andy-awxnode-test
+      shell: "echo >> /tmp/combined-host-info"
 
     - name: Concatenate the files into one file
       delegate_to: andy-awxnode-test
