@@ -1,4 +1,14 @@
 ---
+- name: Copy host inventory information to AWX server
+  hosts: all
+  tasks:
+    - name: Copy file to AWX server
+      synchronize:
+        src: /tmp/{{ inventory_hostname }}_inventory_information.txt
+        dest: andy-awxnode-test:/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
+      delegate_to: localhost
+      become: false
+
 #FETCH NOT WORKING - APPEARS TO BE ATTEMPTING TO COPY TO HOST DIRECTORY AND NOT AWX
 #SEE PREVIOUS COMMITS
 #- name: Copy inventory information file from host to AWX server
@@ -40,13 +50,3 @@
 #        delete: yes
 #        become: yes
 #        become_user: root
-
-  - name: Copy file to AWX server
-    hosts: all
-    become: yes
-    become_user: root
-    tasks:
-      - name: Copy file
-        command: rsync -avz -e ssh ansible_andy@10.210.21.118:/tmp/ubuntu-test-srv-1_inventory_information.txt /tmp/awx-host-info/ubuntu-test-srv-1_inventory_information.txt
-
-
