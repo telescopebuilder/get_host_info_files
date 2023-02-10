@@ -6,7 +6,7 @@
     - name: Copy file from source host
       copy:
         src: /tmp/test.txt
-        dest: /tmp/test.txt
+        dest: /tmp/
         remote_src: yes
 
 - name: Copy file to destination host
@@ -16,4 +16,4 @@
     - name: Copy file to destination
       copy:
         src: /tmp/test.txt
-        dest: /tmp/test.txt
+        dest: /tmp/
