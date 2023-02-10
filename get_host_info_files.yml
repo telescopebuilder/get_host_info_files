@@ -41,8 +41,8 @@
 #        become: yes
 #        become_user: root
 
-- name: Copy file to AWX server
-  become: yes
-  become_user: root
-  command: rsync -avz -e "ssh -o StrictHostKeyChecking=no" {{ source_file }} ansible_andy@andy-awxnode-test:/tmp/awx-host-info/
+  - name: Copy file to AWX server
+    become: yes
+    become_user: root
+    command: rsync -avz -e "ssh -o StrictHostKeyChecking=no" {{ source_file }} ansible_andy@andy-awxnode-test:/tmp/awx-host-info/
 
