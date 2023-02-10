@@ -13,7 +13,8 @@
     register: hostname_result
 
   - name: Copy file to AWX server
-    fetch:
+    local_action:
+      module: fetch
       src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
       dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
       flat: yes
