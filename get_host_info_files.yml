@@ -1,11 +1,11 @@
 ---
-- name: Copy host inventory information file
-  hosts: ubuntu-test-srv-1
-  become: yes
-  tasks:
-    - name: Copy host information file
-      copy:
-        #src: "/tmp/{{ inventory_hostname }}_inventory_information.txt"
-        src: "/tmp/test.txt"
-        dest: "/tmp/awx-host-info/"
-        become: yes
+ - hosts: all
+   tasks:
+     - name: Fetch the file from the test-srv-1 copy to test-srv-2
+       run_once: yes
+       fetch: /tmp/test.txt dest=buffer/ flat=yes
+       when: "{{ inventory_hostname == 'ubuntu-test-srv-1' }}"
+
+     - name: Copy the file from master to mwiapp02
+       copy: src=buffer/test.txt dest=/tmp/
+       when: "{{ inventory_hostname == 'ubuntu-test-srv-2' }}"
