@@ -1,10 +1,29 @@
 ---
-#NOT WORKING - APPEARS TO BE ATTEMPTING TO COPY TO HOST DIRECTORY AND NOT AWX
+#FETCH NOT WORKING - APPEARS TO BE ATTEMPTING TO COPY TO HOST DIRECTORY AND NOT AWX
 #SEE PREVIOUS COMMITS
+#- name: Copy inventory information file from host to AWX server
+#  hosts: all
+#  become: yes
+#  become_user: root
+#  gather_facts: no
+#
+#  tasks:
+#  - name: Get hostname
+#    shell: hostname
+#    register: hostname_result
+#
+#  - name: Copy file to AWX server
+#    local_action:
+#      module: fetch
+#      src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
+#      dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
+#      flat: yes
+#      become: yes
+#      become_user: root
+
+#USING SYCHRONIZE
 - name: Copy inventory information file from host to AWX server
   hosts: all
-  become: yes
-  become_user: root
   gather_facts: no
 
   tasks:
@@ -13,10 +32,10 @@
     register: hostname_result
 
   - name: Copy file to AWX server
-    local_action:
-      module: fetch
+    synchronize:
       src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
       dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
-      flat: yes
+      mode: pull
+      delete: yes
       become: yes
       become_user: root
