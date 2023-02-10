@@ -42,7 +42,11 @@
 #        become_user: root
 
   - name: Copy file to AWX server
+    hosts: all
     become: yes
     become_user: root
-    command: rsync -avz -e "ssh -o StrictHostKeyChecking=no" {{ source_file }} ansible_andy@andy-awxnode-test:/tmp/awx-host-info/
+    tasks:
+      - name: Copy file
+        command: rsync -avz -e ssh ansible_andy@10.210.21.118:/tmp/ubuntu-test-srv-1_inventory_information.txt /tmp/awx-host-info/ubuntu-test-srv-1_inventory_information.txt
+
 
