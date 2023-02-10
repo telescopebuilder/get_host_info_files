@@ -3,11 +3,13 @@
   hosts: all
   tasks:
     - name: Copy file to AWX server
-      synchronize:
+      copy:
         src: /tmp/{{ inventory_hostname }}_inventory_information.txt
         dest: andy-awxnode-test:/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
       delegate_to: localhost
       become: false
+      remote_src: yes
+
 
 #FETCH NOT WORKING - APPEARS TO BE ATTEMPTING TO COPY TO HOST DIRECTORY AND NOT AWX
 #SEE PREVIOUS COMMITS
