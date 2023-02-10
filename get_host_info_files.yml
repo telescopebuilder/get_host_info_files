@@ -7,15 +7,15 @@
     - name: Fetch the file from remote node to buffer
       fetch:
         src: /tmp/{{ inventory_hostname }}_inventory_information.txt
-        dest: /tmp/awx-info-files/
+        dest: /tmp/awx-host-info/
         flat: yes
 
     - name: Concatenate the files into one file
       delegate_to: andy-awxnode-test
-      shell: "cat /tmp/awx-info-files/*.txt > /tmp/awx-info-files/Combined\ Host\ Info.txt"
+      shell: "cat /tmp/awx-info-files/*.txt > /tmp/awx-host-info/Combined\ Host\ Info.txt"
       register: cat_result
 
     - name: Ensure newline between concatenated files
       delegate_to: andy-awxnode-test
-      shell: "echo >> /tmp/awx-info-files/Combined\ Host\ Info.txt"
+      shell: "echo >> /tmp/awx-host-info/Combined\ Host\ Info.txt"
       when: cat_result.rc == 0
