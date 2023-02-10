@@ -23,20 +23,26 @@
 
 #ALSO NOT WORKING
 #USING SYCHRONIZE
-  - name: Copy inventory information file from host to AWX server
-    hosts: all
-    gather_facts: no
+#  - name: Copy inventory information file from host to AWX server
+#    hosts: all
+#    gather_facts: no
+#
+#    tasks:
+#    - name: Get hostname
+#      shell: hostname
+#      register: hostname_result
+#
+#    - name: Copy file to AWX server
+#      synchronize:
+#        src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
+#        dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
+#        mode: pull
+#        delete: yes
+#        become: yes
+#        become_user: root
 
-    tasks:
-    - name: Get hostname
-      shell: hostname
-      register: hostname_result
+- name: Copy file to AWX server
+  become: yes
+  become_user: root
+  command: rsync -avz -e "ssh -o StrictHostKeyChecking=no" {{ source_file }} ansible_andy@andy-awxnode-test:/tmp/awx-host-info/
 
-    - name: Copy file to AWX server
-      synchronize:
-        src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
-        dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
-        mode: pull
-        delete: yes
-        become: yes
-        become_user: root
