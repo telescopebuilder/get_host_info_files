@@ -21,21 +21,22 @@
 #      become: yes
 #      become_user: root
 
+#ALSO NOT WORKING
 #USING SYCHRONIZE
-- name: Copy inventory information file from host to AWX server
-  hosts: all
-  gather_facts: no
+  - name: Copy inventory information file from host to AWX server
+    hosts: all
+    gather_facts: no
 
-  tasks:
-  - name: Get hostname
-    shell: hostname
-    register: hostname_result
+    tasks:
+    - name: Get hostname
+      shell: hostname
+      register: hostname_result
 
-  - name: Copy file to AWX server
-    synchronize:
-      src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
-      dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
-      mode: pull
-      delete: yes
-      become: yes
-      become_user: root
+    - name: Copy file to AWX server
+      synchronize:
+        src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
+        dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
+        mode: pull
+        delete: yes
+        become: yes
+        become_user: root
