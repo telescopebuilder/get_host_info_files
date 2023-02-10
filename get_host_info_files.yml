@@ -5,4 +5,4 @@
     - name: Copy host information file
       copy:
         src: "/tmp/{{ inventory_hostname }}_inventory_information.txt"
-        dest: "/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt"
+        dest: "/tmp/awx-host-info/"
