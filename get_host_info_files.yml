@@ -10,6 +10,10 @@
         dest: /tmp/awx-host-info/
         flat: yes
 
+    - name: Ensure /tmp/combined-host-info is a file, not a directory
+      delegate_to: andy-awxnode-test
+      shell: "if [ -d /tmp/combined-host-info ]; then rm -r /tmp/combined-host-info; fi; touch /tmp/combined-host-info"
+
     - name: Concatenate the files into one file
       delegate_to: andy-awxnode-test
       shell: "cat /tmp/awx-host-info/*.txt >> /tmp/combined-host-info"
