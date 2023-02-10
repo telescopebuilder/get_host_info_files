@@ -1,10 +1,11 @@
 ---
 - name: Copy host inventory information file
-  hosts: all
+  hosts: ubuntu-test-srv-1
   become: yes
   tasks:
     - name: Copy host information file
       copy:
-        src: "/tmp/{{ inventory_hostname }}_inventory_information.txt"
+        #src: "/tmp/{{ inventory_hostname }}_inventory_information.txt"
+        src: "/tmp/test.txt"
         dest: "/tmp/awx-host-info/"
         become: yes
