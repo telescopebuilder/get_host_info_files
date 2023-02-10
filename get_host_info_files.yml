@@ -1,3 +1,4 @@
+---
 - name: Copy host inventory information file
   copy:
     src: /tmp/{{ inventory_hostname }}_inventory_information.txt
