@@ -1,19 +1,14 @@
 ---
-- name: Copy file from one host to another
-  hosts: ubuntu-test-srv-1
-  gather_facts: no
+- hosts: ubuntu-test-srv-1
   tasks:
-    - name: Copy file from source host
-      copy:
+    - name: Fetch the file from test-srv-1 to buffer
+      fetch:
         src: /tmp/test.txt
-        dest: /tmp/
-        remote_src: yes
+        dest: buffer/
+        flat: yes
 
-- name: Copy file to destination host
-  hosts: ubuntu-test-srv-2
-  gather_facts: no
-  tasks:
-    - name: Copy file to destination
+    - name: Transfer the buffer to test-srv-2
+      delegate_to: ubuntu-test-srv-2
       copy:
-        src: /tmp/test.txt
+        src: buffer/test.txt
         dest: /tmp/
