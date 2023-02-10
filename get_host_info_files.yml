@@ -12,10 +12,10 @@
 
     - name: Concatenate the files into one file
       delegate_to: andy-awxnode-test
-      shell: "cat /tmp/awx-host-info/*.txt > /tmp/awx-host-info/Combined\ Host\ Info.txt"
+      shell: "cat /tmp/awx-host-info/*.txt > /tmp/combined-host-info"
       register: cat_result
 
     - name: Ensure newline between concatenated files
       delegate_to: andy-awxnode-test
-      shell: "echo >> /tmp/awx-host-info/Combined\ Host\ Info.txt"
+      shell: "echo >> /tmp/combined-host-info"
       when: cat_result.rc == 0
