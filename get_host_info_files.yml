@@ -1,11 +1,16 @@
 ---
- - hosts: all
-   tasks:
-     - name: Fetch the file from the test-srv-1 copy to test-srv-2
-       run_once: yes
-       fetch: /tmp/test.txt dest=buffer/ flat=yes
-       when: "{{ inventory_hostname == 'ubuntu-test-srv-1' }}"
+- hosts: all
+  tasks:
+    - name: Copy the file from test-srv-1 to buffer
+      run_once: yes
+      copy:
+        src: /tmp/test.txt
+        dest: buffer/
+        flat: yes
+      when: "{{ inventory_hostname == 'ubuntu-test-srv-1' }}"
 
-     - name: Copy the file from master to mwiapp02
-       copy: src=buffer/test.txt dest=/tmp/
-       when: "{{ inventory_hostname == 'ubuntu-test-srv-2' }}"
+    - name: Copy the file from buffer to test-srv-2
+      copy:
+        src: buffer/test.txt
+        dest: /tmp/
+      when: "{{ inventory_hostname == 'ubuntu-test-srv-2' }}"
