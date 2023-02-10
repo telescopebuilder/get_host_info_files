@@ -6,5 +6,5 @@
   tasks:
     - name: Copy file to AWX server
       copy:
-        src: "{{ inventory_hostname }}_inventory_information.txt"
+        src: "/tmp/{{ inventory_hostname }}_inventory_information.txt"
         dest: "/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt"
