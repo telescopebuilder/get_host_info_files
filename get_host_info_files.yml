@@ -18,4 +18,4 @@
 
     - name: Concatenate the files into one file
       delegate_to: andy-awxnode-test
-      shell: "cat /tmp/awx-host-info/*.txt > /tmp/combined-host-info/current_host_info.txt
+      shell: "cat /tmp/awx-host-info/*.txt > /tmp/combined-host-info/current_host_info.txt"
