@@ -1,14 +1,11 @@
 ---
-- hosts: ubuntu-test-srv-1
+- hosts:
+  - ubuntu-test-srv-1
+  - ubuntu-test-srv-2
+  - ubuntu-test-srv-3
   tasks:
-    - name: Fetch the file from test-srv-1 to buffer
+    - name: Fetch the file from remote node to buffer
       fetch:
-        src: /tmp/test.txt
-        dest: buffer/
+        src: /tmp/{{ inventory_hostname }}_inventory_information.txt
+        dest: /tmp/awx-info-files/
         flat: yes
-
-    - name: Transfer the buffer to test-srv-2
-      delegate_to: ubuntu-test-srv-2
-      copy:
-        src: buffer/test.txt
-        dest: /tmp/
