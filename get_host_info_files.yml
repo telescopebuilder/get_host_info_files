@@ -5,7 +5,6 @@
     - name: Copy file to AWX server
       copy:
         src: /tmp/{{ inventory_hostname }}_inventory_information.txt
-        dest: andy-awxnode-test:/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
-      delegate_to: localhost
+        dest: /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
+      delegate_to: andy-awxnode-test
       become: false
-      remote_src: yes
