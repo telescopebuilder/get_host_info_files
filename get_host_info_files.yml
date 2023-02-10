@@ -9,11 +9,11 @@
         dest: /tmp/test.txt
         remote_src: yes
 
-  - name: Copy file to destination host
-    hosts: ubuntu-test-srv-2
-    gather_facts: no
-    tasks:
-      - name: Copy file to destination
-        copy:
-          src: /tmp/test.txt
-          dest: /tmp/test.txt
+- name: Copy file to destination host
+  hosts: ubuntu-test-srv-2
+  gather_facts: no
+  tasks:
+    - name: Copy file to destination
+      copy:
+        src: /tmp/test.txt
+        dest: /tmp/test.txt
