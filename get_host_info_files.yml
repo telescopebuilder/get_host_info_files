@@ -1,16 +1,19 @@
 ---
-- hosts: all
+- name: Copy file from one host to another
+  hosts: ubuntu-test-srv-1
+  gather_facts: no
   tasks:
-    - name: Copy the file from test-srv-1 to buffer
-      run_once: yes
+    - name: Copy file from source host
       copy:
         src: /tmp/test.txt
-        dest: buffer/
-        flat: yes
-      when: "{{ inventory_hostname == 'ubuntu-test-srv-1' }}"
+        dest: /tmp/test.txt
+        remote_src: yes
 
-    - name: Copy the file from buffer to test-srv-2
-      copy:
-        src: buffer/test.txt
-        dest: /tmp/
-      when: "{{ inventory_hostname == 'ubuntu-test-srv-2' }}"
+  - name: Copy file to destination host
+    hosts: ubuntu-test-srv-2
+    gather_facts: no
+    tasks:
+      - name: Copy file to destination
+        copy:
+          src: /tmp/test.txt
+          dest: /tmp/test.txt
