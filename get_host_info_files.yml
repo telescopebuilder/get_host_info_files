@@ -18,3 +18,5 @@
       src: /tmp/{{ hostname_result.stdout }}_inventory_information.txt
       dest: /tmp/awx-host-info/{{ hostname_result.stdout }}_inventory_information.txt
       flat: yes
+      become: yes
+      become_user: root
