@@ -16,11 +16,6 @@
         src: /tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
         dest: /tmp/awx-host-info/
   
-  #NOT WORKING
-  #  - name: Insert newline
-  #    delegate_to: andy-awxnode-test
-  #    shell: "echo >> /tmp/combined-host-info"
-
-    - name: Concatenate the files into one file
+    - name: Concatenate the files into one file, insert newline 
       delegate_to: andy-awxnode-test
-      shell: "cat /tmp/awx-host-info/*.txt > /tmp/combined-host-info/current_host_info.txt"
+      shell: "cat /tmp/awx-host-info/*.txt <(echo) > /tmp/combined-host-info/current_host_info.txt"
