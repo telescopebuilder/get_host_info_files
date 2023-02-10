@@ -6,6 +6,6 @@
       copy:
         src: /tmp/{{ inventory_hostname }}_inventory_information.txt
         dest: andy-awxnode-test:/tmp/awx-host-info/{{ inventory_hostname }}_inventory_information.txt
-      delegate_to: localhost
+      delegate_to: andy-awxnode-test
       become: true
       become_user: root
